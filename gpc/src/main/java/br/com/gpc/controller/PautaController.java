@@ -26,8 +26,13 @@ public class PautaController {
     @RequestMapping( method = RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PautaDTO> cadastrarPauta(@RequestBody PautaDTO pautaDTO) throws NegocioException {
         this.logger.info("Method cadastrarPauta.");
-        return ResponseEntity.ok(pautaService.cadastrarPauta(pautaDTO));
+        return ResponseEntity.ok(this.pautaService.cadastrarPauta(pautaDTO));
     }
 
-
+    @ApiOperation(value = "Associar usuários em pauta.")
+    @RequestMapping(value = "/associar", method = RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PautaDTO> associarUsuariosPauta(@RequestBody PautaDTO pautaDTO) {
+        this.logger.info("Method associarUsuariosPauta.");
+        return ResponseEntity.ok(this.pautaService.associarUsuariosPauta(pautaDTO));
+    }
 }

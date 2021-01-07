@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Optional;
 
@@ -30,6 +31,16 @@ public class PautaServiceImpl implements PautaService {
         Optional<Pauta> opPauta = this.pautaRepository.buscarPautaPorTema(pautaDTO.getTema());
         if(opPauta.isPresent()) {
             throw new NegocioException("Já existe uma pauta com esse tema!");
+        }
+        return this.pautaMapper.toDto(this.pautaRepository.save(this.pautaMapper.toEntity(pautaDTO)));
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public PautaDTO associarUsuariosPauta(PautaDTO pautaDTO) throws NegocioException {
+        this.logger.info("Method associarUsuariosPauta.");
+        if(CollectionUtils.isEmpty(pautaDTO.getUsuarios())) {
+            throw new NegocioException("E necessário informar pelo menos um usuário para realizar a associação!");
         }
         return this.pautaMapper.toDto(this.pautaRepository.save(this.pautaMapper.toEntity(pautaDTO)));
     }
