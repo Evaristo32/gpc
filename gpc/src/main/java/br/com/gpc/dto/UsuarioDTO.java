@@ -1,6 +1,6 @@
 package br.com.gpc.dto;
 
-import br.com.gpc.domain.Usuario;
+import br.com.gpc.domain.Pauta;
 import lombok.*;
 
 import java.util.Set;
@@ -10,10 +10,9 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PautaDTO {
+public class UsuarioDTO {
 
     private Long id;
-    private String tema;
-    private String descricao;
-    private Set<Usuario> usuarios;
+    private String cpf;
+    private Set<Pauta> pautas;
 }

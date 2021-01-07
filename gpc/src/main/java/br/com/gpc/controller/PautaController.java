@@ -23,7 +23,7 @@ public class PautaController {
     private final PautaService pautaService;
 
     @ApiOperation(value = "Cria uma pauta.")
-    @RequestMapping( method = RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping( method = RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PautaDTO> cadastrarPauta(@RequestBody PautaDTO pautaDTO) throws NegocioException {
         this.logger.info("Method cadastrarPauta.");
         return ResponseEntity.ok(pautaService.cadastrarPauta(pautaDTO));

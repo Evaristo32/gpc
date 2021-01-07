@@ -29,7 +29,7 @@ public class PautaServiceImpl implements PautaService {
         this.logger.info("Method cadastrarPauta.");
         Optional<Pauta> opPauta = this.pautaRepository.buscarPautaPorTema(pautaDTO.getTema());
         if(opPauta.isPresent()) {
-            throw new NegocioException("Já existe uma pauta com esse tema.");
+            throw new NegocioException("Já existe uma pauta com esse tema!");
         }
         return this.pautaMapper.toDto(this.pautaRepository.save(this.pautaMapper.toEntity(pautaDTO)));
     }
