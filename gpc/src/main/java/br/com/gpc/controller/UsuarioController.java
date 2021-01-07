@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping(value = "api/v1/usuario")
@@ -26,7 +27,7 @@ public class UsuarioController {
 
     @ApiOperation(value = "Cria um usuário.")
     @RequestMapping( method = RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsuarioDTO> cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO) throws NegocioException {
+    public ResponseEntity<UsuarioDTO> cadastrarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) throws NegocioException {
         this.logger.info("Method cadastrarUsuario.");
         return ResponseEntity.ok(usuarioService.cadastrarUsuario(usuarioDTO));
     }
