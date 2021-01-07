@@ -1,7 +1,7 @@
-package br.com.gpc.exception;
+package br.com.gpc.exceptions;
 
 
-import br.com.gpc.dto.ErrorInfoDTO;
+import br.com.gpc.dto.ExceptionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,17 +13,16 @@ public class GlobalDefaultExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NegocioException.class)
-    @ResponseBody
-    ErrorInfoDTO
+    @ResponseBody ExceptionDTO
     handleBadRequest(Exception ex) {
-        return new ErrorInfoDTO(ex);
+        return new ExceptionDTO(ex);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    @ResponseBody ErrorInfoDTO
+    @ResponseBody ExceptionDTO
     handleInternoSeverError(Exception ex) {
-        return new ErrorInfoDTO(ex);
+        return new ExceptionDTO(ex);
     }
 
 }

@@ -1,8 +1,6 @@
 package br.com.gpc.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +8,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_pauta", schema = "gpc")
 public class Pauta  implements Serializable {
@@ -25,6 +25,5 @@ public class Pauta  implements Serializable {
 
     @Column(name = "descricao", nullable = false, length = 255)
     private String descricao;
-
 
 }

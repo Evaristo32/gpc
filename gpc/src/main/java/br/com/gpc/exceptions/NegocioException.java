@@ -1,4 +1,4 @@
-package br.com.gpc.exception;
+package br.com.gpc.exceptions;
 
 public class NegocioException extends RuntimeException{
     public NegocioException() {
