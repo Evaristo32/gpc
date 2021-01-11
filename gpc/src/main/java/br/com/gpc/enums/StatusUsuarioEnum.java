@@ -1,4 +1,4 @@
-package br.com.gpc;
+package br.com.gpc.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

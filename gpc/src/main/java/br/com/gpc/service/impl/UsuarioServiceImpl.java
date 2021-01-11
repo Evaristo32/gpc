@@ -1,6 +1,6 @@
 package br.com.gpc.service.impl;
 
-import br.com.gpc.StatusUsuarioEnum;
+import br.com.gpc.enums.StatusUsuarioEnum;
 import br.com.gpc.domain.Usuario;
 import br.com.gpc.dto.ResponseUsuarioDTO;
 import br.com.gpc.dto.UsuarioDTO;

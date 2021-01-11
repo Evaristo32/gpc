@@ -22,3 +22,21 @@ spring:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+mq:
+  exchange:
+    name: Machines
+  queue:
+    name: RESULTADO_DAS_PAUTAS
+
+
+
+schedule:
+  resultado-pauta: 0 0/1 * * * *
+

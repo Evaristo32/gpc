@@ -14,24 +14,29 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class PautaServiceImpl implements PautaService {
 
     private Logger logger = LoggerFactory.getLogger(PautaServiceImpl.class);
+    private final int UM_MINUTOS = 1;
     private final PautaRepository pautaRepository;
     private final PautaMapper pautaMapper;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public PautaDTO cadastrarPauta(PautaDTO pautaDTO) throws NegocioException{
+    public PautaDTO cadastrarPauta(PautaDTO pautaDTO) throws NegocioException {
         this.logger.info("Method cadastrarPauta.");
         Optional<Pauta> opPauta = this.pautaRepository.buscarPautaPorTema(pautaDTO.getTema());
-        if(opPauta.isPresent()) {
+        if (opPauta.isPresent()) {
             throw new NegocioException("Já existe uma pauta com esse tema!");
         }
+        pautaDTO.setResultadoEnviado(Boolean.FALSE);
         return this.pautaMapper.toDto(this.pautaRepository.save(this.pautaMapper.toEntity(pautaDTO)));
     }
 
@@ -39,9 +44,68 @@ public class PautaServiceImpl implements PautaService {
     @Override
     public PautaDTO associarUsuariosPauta(PautaDTO pautaDTO) throws NegocioException {
         this.logger.info("Method associarUsuariosPauta.");
-        if(CollectionUtils.isEmpty(pautaDTO.getUsuarios())) {
+        if (CollectionUtils.isEmpty(pautaDTO.getUsuarios())) {
             throw new NegocioException("E necessário informar pelo menos um usuário para realizar a associação!");
         }
         return this.pautaMapper.toDto(this.pautaRepository.save(this.pautaMapper.toEntity(pautaDTO)));
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void abrirSessoaParaVotacao(Long idPauta) throws NegocioException {
+        this.logger.info("Method abrirSessoaParaVotacao.");
+        Pauta pauta = this.pautaRepository.buscarPautaComVotacaoParaAbrir(idPauta)
+                .orElseThrow(() -> {
+                    throw new NegocioException("A pauta informada não foi encontrada ou já foi iniciada a votação!!");
+                });
+        if (CollectionUtils.isEmpty(pauta.getUsuarios())) {
+            throw new NegocioException("A pauta não possui nenhum usuário associado para iniciar a votação!");
+        }
+        pauta.setDataHoraVotacao(LocalDateTime.now().plusMinutes(this.UM_MINUTOS));
+        this.pautaRepository.save(pauta);
+    }
+
+    @Override
+    public void validarPautaComVotacaoAberta(Long idPauta) throws NegocioException {
+        this.logger.info("Method verificarStatusPauta.");
+        Pauta pauta = this.pautaRepository.buscarPautaComVotacaoAberta(idPauta)
+                .orElseThrow(() -> {
+                    throw new NegocioException("A pauta informada encontra-se fechada para votação ou não existe!");
+                });
+        if (pauta.getDataHoraVotacao().isBefore(LocalDateTime.now())) {
+            throw new NegocioException("A votação já foi encerrada para a pauta informada!");
+        }
+    }
+
+    @Override
+    public List<PautaDTO> buscarPautas() {
+        this.logger.info("Method buscarPautas.");
+        return this.pautaMapper.toDto(this.pautaRepository.buscarTodasPautas());
+    }
+
+    @Override
+    public PautaDTO buscarPautaPorId(Long idPauta) {
+        this.logger.info("Method buscarPautaPorId.");
+        Pauta pauta = this.pautaRepository.buscarPorId(idPauta).orElseThrow(() -> {
+            throw new NegocioException("A pauta informada não foi encontrada!");
+        });
+        return this.pautaMapper.toDto(pauta);
+    }
+
+    @Override
+    public List<Pauta> buscarPautasParaEmitirResultado(LocalDateTime dataHoraAtual) {
+        this.logger.info("Method buscarPautasParaEmitirResultado.");
+        return this.pautaRepository.buscarTodasPautasComVotacaoEncerrada(Boolean.FALSE)
+                .stream()
+                .filter(pauta -> pauta.getDataHoraVotacao().isBefore(dataHoraAtual))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void tornaPautasEmitidas(Pauta pauta) {
+        this.logger.info("Method tornaPautaEmitida.");
+        pauta.setResultadoEnviado(Boolean.TRUE);
+        this.pautaRepository.save(pauta);
     }
 }

@@ -1,10 +1,10 @@
 package br.com.gpc.domain;
 
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -28,7 +28,7 @@ public class Pauta  implements Serializable {
     @Column(name = "descricao", nullable = false, length = 255)
     private String descricao;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(schema = "gpc",name = "pauta_usuario",
             joinColumns = {
                     @JoinColumn(name = "id_pauta", referencedColumnName = "id",
@@ -38,4 +38,9 @@ public class Pauta  implements Serializable {
                             nullable = false, updatable = false)})
     private Set<Usuario> usuarios;
 
+    @Column(name = "data_hora_votacao")
+    private LocalDateTime dataHoraVotacao;
+
+    @Column(name = "resultado_enviado")
+    private Boolean resultadoEnviado;
 }

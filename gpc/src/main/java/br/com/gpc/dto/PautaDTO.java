@@ -3,8 +3,10 @@ package br.com.gpc.dto;
 import br.com.gpc.domain.Usuario;
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -22,7 +24,12 @@ public class PautaDTO {
 
     @Size(max = 255, message = "O tamanho máximo do campo descrição é de 255 caracteres!")
     @NotEmpty(message = "O campo descrição e de preenchimento obrigatório!")
+
     private String descricao;
 
-    private Set<Usuario> usuarios;
+    private Set<UsuarioDTO> usuarios;
+
+    private LocalDateTime dataHoraVotacao;
+
+    private Boolean resultadoEnviado;
 }

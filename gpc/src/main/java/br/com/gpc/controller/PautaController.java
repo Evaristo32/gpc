@@ -2,6 +2,7 @@ package br.com.gpc.controller;
 
 import br.com.gpc.dto.PautaDTO;
 import br.com.gpc.exceptions.NegocioException;
+import br.com.gpc.job.PautaJob;
 import br.com.gpc.service.PautaService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -9,12 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RequestMapping(value = "api/v1/pauta")
 @RequiredArgsConstructor
@@ -23,6 +22,7 @@ public class PautaController {
 
     private Logger logger = LoggerFactory.getLogger(PautaController.class);
     private final PautaService pautaService;
+    private final PautaJob pautaJob;
 
     @ApiOperation(value = "Cria uma pauta.")
     @RequestMapping( method = RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -37,4 +37,19 @@ public class PautaController {
         this.logger.info("Method associarUsuariosPauta.");
         return ResponseEntity.ok(this.pautaService.associarUsuariosPauta(pautaDTO));
     }
+
+    @ApiOperation(value = "Abrir votação da pauta.")
+    @RequestMapping(value = "/abrir-votacao/{idPauta}", method = RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE)
+    public void abrirVotacao(@PathVariable("idPauta") Long idPauta) {
+        this.logger.info("Method abrirVotacao.");
+        this.pautaService.abrirSessoaParaVotacao(idPauta);
+    }
+
+    @ApiOperation(value = "Buscar todas as pautas.")
+    @RequestMapping( method = RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PautaDTO>> buscarPautas() {
+        this.logger.info("Method buscarPautas.");
+        return ResponseEntity.ok(this.pautaService.buscarPautas());
+    }
+
 }
