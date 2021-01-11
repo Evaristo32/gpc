@@ -5,6 +5,7 @@ import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.mapper.ResultadoVotacaoMapper;
 import br.com.gpc.repository.ResultadoVotacaoRepository;
 import br.com.gpc.service.ResultadoVotacaoService;
+import br.com.gpc.util.MensagensUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class ResultadoVotacaoServiceImpl implements ResultadoVotacaoService {
         this.logger.info("Method buscarVotacaoPorIdPauta.");
         return this.resultadoVotacaoMapper.toDto(
                 this.resultadoVotacaoRepository.findById(idPauta).orElseThrow(() -> {
-                    throw new NegocioException("A pauta não possui nenhuma votação!");
+                    throw new NegocioException(MensagensUtil.PAUTA_SEM_VOTACAO);
                 }));
     }
 }

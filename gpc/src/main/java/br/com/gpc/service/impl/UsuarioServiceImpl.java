@@ -9,6 +9,7 @@ import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.mapper.UsuarioMapper;
 import br.com.gpc.repository.UsuarioRepository;
 import br.com.gpc.service.UsuarioService;
+import br.com.gpc.util.MensagensUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,11 +37,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioDTO.setCpf(cpf);
         Optional<Usuario> opUsuario = this.usuarioRepository.buscarUsuarioPorCpf(cpf);
         if(opUsuario.isPresent()) {
-            throw new NegocioException("Usuário já cadastrado!");
+            throw new NegocioException(MensagensUtil.USUARIO_JA_CADASTRADO);
         }
         ResponseUsuarioDTO responseUsuarioDTO = this.usuarioHerokuClient.validarStatusUsuario(cpf);
         if(responseUsuarioDTO.getStatus().equals(StatusUsuarioEnum.UNABLE_TO_VOTE.getDescricao())) {
-            throw new NegocioException("Não foi possível cadastrar o usuário, pois o cpf informado e invalido!");
+            throw new NegocioException(MensagensUtil.CPF_INVALIDO);
         }
         return this.usuarioMapper.toDto(this.usuarioRepository.save(this.usuarioMapper.toEntity(usuarioDTO)));
     }

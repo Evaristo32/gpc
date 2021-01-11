@@ -6,6 +6,7 @@ import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.mapper.PautaMapper;
 import br.com.gpc.repository.PautaRepository;
 import br.com.gpc.service.PautaService;
+import br.com.gpc.util.MensagensUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class PautaServiceImpl implements PautaService {
         this.logger.info("Method cadastrarPauta.");
         Optional<Pauta> opPauta = this.pautaRepository.buscarPautaPorTema(pautaDTO.getTema());
         if (opPauta.isPresent()) {
-            throw new NegocioException("Já existe uma pauta com esse tema!");
+            throw new NegocioException(MensagensUtil.TEMA_JA_EXISTE);
         }
         pautaDTO.setResultadoEnviado(Boolean.FALSE);
         return this.pautaMapper.toDto(this.pautaRepository.save(this.pautaMapper.toEntity(pautaDTO)));
@@ -45,7 +46,7 @@ public class PautaServiceImpl implements PautaService {
     public PautaDTO associarUsuariosPauta(PautaDTO pautaDTO) throws NegocioException {
         this.logger.info("Method associarUsuariosPauta.");
         if (CollectionUtils.isEmpty(pautaDTO.getUsuarios())) {
-            throw new NegocioException("E necessário informar pelo menos um usuário para realizar a associação!");
+            throw new NegocioException(MensagensUtil.NENHUM_USUARIO_INFORMADO);
         }
         return this.pautaMapper.toDto(this.pautaRepository.save(this.pautaMapper.toEntity(pautaDTO)));
     }
@@ -56,10 +57,10 @@ public class PautaServiceImpl implements PautaService {
         this.logger.info("Method abrirSessoaParaVotacao.");
         Pauta pauta = this.pautaRepository.buscarPautaComVotacaoParaAbrir(idPauta)
                 .orElseThrow(() -> {
-                    throw new NegocioException("A pauta informada não foi encontrada ou já foi iniciada a votação!!");
+                    throw new NegocioException(MensagensUtil.PAUTA_NAO_ENCOTRADA_OU_VOTACAO_INICIADA);
                 });
         if (CollectionUtils.isEmpty(pauta.getUsuarios())) {
-            throw new NegocioException("A pauta não possui nenhum usuário associado para iniciar a votação!");
+            throw new NegocioException(MensagensUtil.NENHUM_USUARIO_ASSOCIADO);
         }
         pauta.setDataHoraVotacao(LocalDateTime.now().plusMinutes(this.UM_MINUTOS));
         this.pautaRepository.save(pauta);
@@ -70,10 +71,10 @@ public class PautaServiceImpl implements PautaService {
         this.logger.info("Method verificarStatusPauta.");
         Pauta pauta = this.pautaRepository.buscarPautaComVotacaoAberta(idPauta)
                 .orElseThrow(() -> {
-                    throw new NegocioException("A pauta informada encontra-se fechada para votação ou não existe!");
+                    throw new NegocioException(MensagensUtil.VOTACAO_FECHADA_OU_INEXISTENTE);
                 });
         if (pauta.getDataHoraVotacao().isBefore(LocalDateTime.now())) {
-            throw new NegocioException("A votação já foi encerrada para a pauta informada!");
+            throw new NegocioException(MensagensUtil.VOTACAO_ENCERRADA);
         }
     }
 
@@ -87,7 +88,7 @@ public class PautaServiceImpl implements PautaService {
     public PautaDTO buscarPautaPorId(Long idPauta) {
         this.logger.info("Method buscarPautaPorId.");
         Pauta pauta = this.pautaRepository.buscarPorId(idPauta).orElseThrow(() -> {
-            throw new NegocioException("A pauta informada não foi encontrada!");
+            throw new NegocioException(MensagensUtil.PAUTA_NAO_ENCONTRADA);
         });
         return this.pautaMapper.toDto(pauta);
     }
