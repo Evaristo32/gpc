@@ -24,7 +24,7 @@ spring:
           use_jdbc_metadata_defaults: false
 
   rabbitmq:
-    host: amqps://fnwskuow:RuJWGWbEz6d3pfmhZexqARkHSExCyF9y@owl.rmq.cloudamqp.com/fnwskuow
+    host: amqps://owl.rmq.cloudamqp.com/fnwskuow
     username: fnwskuow
     password: RuJWGWbEz6d3pfmhZexqARkHSExCyF9y
 
