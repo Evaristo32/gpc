@@ -4,9 +4,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/gpcDb
-    username: usr_gpc
-    password: gpc@2021
+    url: jdbc:postgresql://ec2-18-232-254-253.compute-1.amazonaws.com:5432/dbk96134uvcs69
+    username: kpmzujmcfildus
+    password: 67a831212cd98fd0172566754866656ff92be80447bd04bd20f1376e865790ef
     driver-class-name: org.postgresql.Driver
   jpa:
     database: POSTGRESQL
@@ -24,19 +24,19 @@ spring:
           use_jdbc_metadata_defaults: false
 
   rabbitmq:
-    host: localhost
+    host: amqps://fnwskuow:RuJWGWbEz6d3pfmhZexqARkHSExCyF9y@owl.rmq.cloudamqp.com/fnwskuow
     port: 5672
-    username: guest
-    password: guest
+    username: fnwskuow
+    password: RuJWGWbEz6d3pfmhZexqARkHSExCyF9y
 
   flyway:
     enabled: true
     schemas: jovem
     check-location: false
     locations: db/migration
-    url: jdbc:postgresql://localhost:5432/gpcDb
-    username: usr_gpc
-    password: gpc@2021
+    url: jdbc:postgresql://ec2-18-232-254-253.compute-1.amazonaws.com:5432/dbk96134uvcs69
+    username: kpmzujmcfildus
+    password: 67a831212cd98fd0172566754866656ff92be80447bd04bd20f1376e865790ef
     baseline-on-migrate: true
 
 mq:
