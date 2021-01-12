@@ -6,8 +6,8 @@ create table tb_usuario
     cpf varchar(11) not null
 );
 
-alter table tb_usuario
-    owner to fnwskuow;
+-- alter table tb_usuario
+--     owner to fnwskuow;
 
 create table tb_pauta
 (
@@ -19,9 +19,9 @@ create table tb_pauta
     resultado_enviado boolean,
     tema              varchar(100) not null
 );
-
-alter table tb_pauta
-    owner to fnwskuow;
+--
+-- alter table tb_pauta
+--     owner to fnwskuow;
 
 create table pauta_usuario
 (
@@ -35,8 +35,6 @@ create table pauta_usuario
         primary key (id_pauta, usuario_id)
 );
 
-alter table pauta_usuario
-    owner to fnwskuow;
 
 create table tb_voto
 (
@@ -51,9 +49,9 @@ create table tb_voto
         constraint fk_usuario_voto
             references tb_usuario
 );
-
-alter table tb_voto
-    owner to fnwskuow;
+--
+-- alter table tb_voto
+--     owner to fnwskuow;
 
 create table tb_resultado_votacao
 (
@@ -68,6 +66,6 @@ create table tb_resultado_votacao
         constraint fk_pauta_resultado_votacao
             references tb_pauta
 );
-
-alter table tb_resultado_votacao
-    owner to fnwskuow;
+--
+-- alter table tb_resultado_votacao
+--     owner to fnwskuow;
