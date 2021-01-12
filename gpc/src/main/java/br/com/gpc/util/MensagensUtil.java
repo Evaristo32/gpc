@@ -18,4 +18,7 @@ public abstract class MensagensUtil {
     public static final String PAUTA_EMPATADA = "Votação da pauta empatada.";
     public static final String USUARIO_COM_VOTO_REALIZADO = "O usuário não pode realizar mais de um voto em uma única pauta!";
     public static final String PAUTA_COM_VOTACAO_ABERTA = "A pauta informada ainda não terminou a sessão de votação!";
+
+    public static final String ERRO_PARSE_JSON_TO_OBJECT = "Erro ao fazer parse do json para Objetto.";
+    public static final String ERRO_PARSE_OBJECT_TO_JSON = "Erro ao fazer parse do objeto para json.";
 }
