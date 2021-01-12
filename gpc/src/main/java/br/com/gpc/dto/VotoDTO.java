@@ -23,3 +23,4 @@ public class VotoDTO {
     @NotNull(message = "O campo usuário é de preenchimento obrigatório!")
     private UsuarioDTO usuario;
 }
+
