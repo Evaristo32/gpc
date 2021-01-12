@@ -25,7 +25,7 @@ spring:
 
   rabbitmq:
     host: amqps://fnwskuow:RuJWGWbEz6d3pfmhZexqARkHSExCyF9y@owl.rmq.cloudamqp.com/fnwskuow
-    port: 5672
+#    port: 5672
     username: fnwskuow
     password: RuJWGWbEz6d3pfmhZexqARkHSExCyF9y
 
