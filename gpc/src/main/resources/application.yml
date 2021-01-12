@@ -29,6 +29,16 @@ spring:
     username: guest
     password: guest
 
+  flyway:
+    enabled: true
+    schemas: jovem
+    check-location: false
+    locations: db/migration
+    url: jdbc:postgresql://localhost:5432/gpcDb
+    username: usr_gpc
+    password: gpc@2021
+    baseline-on-migrate: true
+
 mq:
   exchange:
     name: Machines
