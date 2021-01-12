@@ -56,7 +56,7 @@ public class PautaServiceImpl implements PautaService {
     public void abrirSessoaParaVotacao(Long idPauta) throws NegocioException {
         this.logger.info("Method abrirSessoaParaVotacao.");
         Pauta pauta = this.pautaRepository.buscarPautaComVotacaoParaAbrir(idPauta)
-                .orElseThrow(() -> {
+                .<NegocioException>orElseThrow(() -> {
                     throw new NegocioException(MensagensUtil.PAUTA_NAO_ENCOTRADA_OU_VOTACAO_INICIADA);
                 });
         if (CollectionUtils.isEmpty(pauta.getUsuarios())) {
@@ -70,7 +70,7 @@ public class PautaServiceImpl implements PautaService {
     public void validarPautaComVotacaoAberta(Long idPauta) throws NegocioException {
         this.logger.info("Method verificarStatusPauta.");
         Pauta pauta = this.pautaRepository.buscarPautaComVotacaoAberta(idPauta)
-                .orElseThrow(() -> {
+                .<NegocioException>orElseThrow(() -> {
                     throw new NegocioException(MensagensUtil.VOTACAO_FECHADA_OU_INEXISTENTE);
                 });
         if (pauta.getDataHoraVotacao().isBefore(LocalDateTime.now())) {
@@ -87,7 +87,7 @@ public class PautaServiceImpl implements PautaService {
     @Override
     public PautaDTO buscarPautaPorId(Long idPauta) {
         this.logger.info("Method buscarPautaPorId.");
-        Pauta pauta = this.pautaRepository.buscarPorId(idPauta).orElseThrow(() -> {
+        Pauta pauta = this.pautaRepository.buscarPorId(idPauta).<NegocioException>orElseThrow(() -> {
             throw new NegocioException(MensagensUtil.PAUTA_NAO_ENCONTRADA);
         });
         return this.pautaMapper.toDto(pauta);

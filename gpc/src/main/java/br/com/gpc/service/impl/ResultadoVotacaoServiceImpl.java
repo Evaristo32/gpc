@@ -34,7 +34,7 @@ public class ResultadoVotacaoServiceImpl implements ResultadoVotacaoService {
     public ResultaVotacaoDTO buscarVotacaoPorIdPauta(Long idPauta) throws NegocioException {
         this.logger.info("Method buscarVotacaoPorIdPauta.");
         return this.resultadoVotacaoMapper.toDto(
-                this.resultadoVotacaoRepository.findById(idPauta).orElseThrow(() -> {
+                this.resultadoVotacaoRepository.findById(idPauta).<NegocioException>orElseThrow(() -> {
                     throw new NegocioException(MensagensUtil.PAUTA_SEM_VOTACAO);
                 }));
     }
