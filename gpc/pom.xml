@@ -22,6 +22,7 @@
 		<lombok-binding.version>0.2.0</lombok-binding.version>
 		<maven.version>3.5.1</maven.version>
 		<springfox.version>2.9.2</springfox.version>
+		<amqp-client.version>3.3.4</amqp-client.version>
 	</properties>
 
 	<dependencies>
@@ -95,6 +96,11 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+<!--			<version>${amqp-client.version}</version>-->
 		</dependency>
 	</dependencies>
 

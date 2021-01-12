@@ -24,13 +24,12 @@ spring:
           use_jdbc_metadata_defaults: false
 
   rabbitmq:
-    host: amqps://owl.rmq.cloudamqp.com/fnwskuow
+    host: owl.rmq.cloudamqp.com 
     username: fnwskuow
     password: RuJWGWbEz6d3pfmhZexqARkHSExCyF9y
 
   flyway:
     enabled: true
-    schemas: jovem
     check-location: false
     locations: db/migration
     url: jdbc:postgresql://ec2-18-232-254-253.compute-1.amazonaws.com:5432/dbk96134uvcs69
