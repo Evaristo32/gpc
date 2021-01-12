@@ -2,7 +2,6 @@ package br.com.gpc.controller;
 
 import br.com.gpc.dto.PautaDTO;
 import br.com.gpc.exceptions.NegocioException;
-import br.com.gpc.job.PautaJob;
 import br.com.gpc.service.PautaService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ public class PautaController {
 
     private Logger logger = LoggerFactory.getLogger(PautaController.class);
     private final PautaService pautaService;
-    private final PautaJob pautaJob;
 
     @ApiOperation(value = "Cria uma pauta.")
     @RequestMapping( method = RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

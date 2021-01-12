@@ -1,9 +1,7 @@
 package br.com.gpc.dto;
 
-import br.com.gpc.domain.Usuario;
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
