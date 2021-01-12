@@ -1,4 +1,4 @@
-create table gpc.tb_usuario
+create table tb_usuario
 (
     id  bigint      not null
         constraint tb_usuario_pkey
@@ -6,10 +6,10 @@ create table gpc.tb_usuario
     cpf varchar(11) not null
 );
 
-alter table gpc.tb_usuario
-    owner to usr_gpc;
+alter table tb_usuario
+    owner to fnwskuow;
 
-create table gpc.tb_pauta
+create table tb_pauta
 (
     id                bigint       not null
         constraint tb_pauta_pkey
@@ -20,25 +20,25 @@ create table gpc.tb_pauta
     tema              varchar(100) not null
 );
 
-alter table gpc.tb_pauta
-    owner to usr_gpc;
+alter table tb_pauta
+    owner to fnwskuow;
 
-create table gpc.pauta_usuario
+create table pauta_usuario
 (
     id_pauta   bigint not null
         constraint fk_pauta_usuario
-            references gpc.tb_pauta,
+            references tb_pauta,
     usuario_id bigint not null
         constraint fk_usuario_pauta
-            references gpc.tb_usuario,
+            references tb_usuario,
     constraint pauta_usuario_pkey
         primary key (id_pauta, usuario_id)
 );
 
-alter table gpc.pauta_usuario
-    owner to usr_gpc;
+alter table pauta_usuario
+    owner to fnwskuow;
 
-create table gpc.tb_voto
+create table tb_voto
 (
     id         bigint     not null
         constraint tb_voto_pkey
@@ -46,16 +46,16 @@ create table gpc.tb_voto
     voto       varchar(3) not null,
     id_pauta   bigint     not null
         constraint fk_pauta_voto
-            references gpc.tb_pauta,
+            references tb_pauta,
     id_usuario bigint     not null
         constraint fk_usuario_voto
-            references gpc.tb_usuario
+            references tb_usuario
 );
 
-alter table gpc.tb_voto
-    owner to usr_gpc;
+alter table tb_voto
+    owner to fnwskuow;
 
-create table gpc.tb_resultado_votacao
+create table tb_resultado_votacao
 (
     id             bigint         not null
         constraint tb_resultado_votacao_pkey
@@ -66,8 +66,8 @@ create table gpc.tb_resultado_votacao
     voto_oposto    numeric(19, 2) not null,
     id_pauta       bigint         not null
         constraint fk_pauta_resultado_votacao
-            references gpc.tb_pauta
+            references tb_pauta
 );
 
-alter table gpc.tb_resultado_votacao
-    owner to usr_gpc;
+alter table tb_resultado_votacao
+    owner to fnwskuow;

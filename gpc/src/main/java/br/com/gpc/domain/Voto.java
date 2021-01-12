@@ -13,12 +13,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_voto", schema = "gpc")
+@Table(name = "tb_voto")
 public class Voto implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gpc.sq_voto")
-    @SequenceGenerator(name = "gpc.sq_voto", sequenceName = "gpc.sq_voto", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_voto")
+    @SequenceGenerator(name = "sq_voto", sequenceName = "sq_voto", allocationSize = 1)
     private Long id;
 
     @Convert(converter = StatusVotoConverter.class)

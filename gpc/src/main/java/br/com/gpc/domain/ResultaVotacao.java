@@ -11,12 +11,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_resultado_votacao", schema = "gpc")
+@Table(name = "tb_resultado_votacao")
 public class ResultaVotacao implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gpc.sq_resultado_votacao")
-    @SequenceGenerator(name = "gpc.sq_resultado_votacao", sequenceName = "gpc.sq_resultado_votacao", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_resultado_votacao")
+    @SequenceGenerator(name = "sq_resultado_votacao", sequenceName = "sq_resultado_votacao", allocationSize = 1)
     private Long id;
 
     @Column(name = "voto_favoravel", nullable = false, length = 20)

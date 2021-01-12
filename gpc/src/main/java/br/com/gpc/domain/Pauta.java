@@ -13,13 +13,13 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_pauta", schema = "gpc")
+@Table(name = "tb_pauta")
 public class Pauta  implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gpc.sq_pauta")
-    @SequenceGenerator(name = "gpc.sq_pauta", sequenceName = "gpc.sq_pauta", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_pauta")
+    @SequenceGenerator(name = "sq_pauta", sequenceName = "sq_pauta", allocationSize = 1)
     private Long id;
 
     @Column(name = "tema", nullable = false, length = 100)
