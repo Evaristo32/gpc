@@ -1,6 +1,5 @@
-package br.com.gpc.service;
+package br.com.gpc.service.impl;
 
-import br.com.gpc.service.impl.RabbitMqServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +12,7 @@ import org.springframework.test.context.TestPropertySource;
 
 @ExtendWith(MockitoExtension.class)
 @TestPropertySource(locations="classpath:application.yml")
-public class RabbitMqTest extends Assertions {
+public class RabbitMqImplTest extends Assertions {
 
     @InjectMocks
     private RabbitMqServiceImpl rabbitMqService;

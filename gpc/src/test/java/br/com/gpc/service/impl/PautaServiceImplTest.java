@@ -1,4 +1,4 @@
-package br.com.gpc.service;
+package br.com.gpc.service.impl;
 
 import br.com.gpc.domain.Pauta;
 import br.com.gpc.domain.Usuario;
@@ -7,7 +7,6 @@ import br.com.gpc.dto.UsuarioDTO;
 import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.mapper.PautaMapper;
 import br.com.gpc.repository.PautaRepository;
-import br.com.gpc.service.impl.PautaServiceImpl;
 import br.com.gpc.util.MensagensUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class PautaServiceTest extends Assertions {
+public class PautaServiceImplTest extends Assertions {
 
     @InjectMocks
     private PautaServiceImpl pautaServiceImpl;
