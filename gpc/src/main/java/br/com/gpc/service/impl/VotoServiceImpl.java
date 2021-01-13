@@ -10,7 +10,7 @@ import br.com.gpc.mapper.VotoMapper;
 import br.com.gpc.repository.VotoRepository;
 import br.com.gpc.service.PautaService;
 import br.com.gpc.service.VotoService;
-import br.com.gpc.util.MensagensUtil;
+import br.com.gpc.util.constant.MensagensExceptionsUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public class VotoServiceImpl implements VotoService {
         validarTempoDeSesaoFinalizado(idPauta);
         BigDecimal quantidadeVotosTotal = this.votoRepository.totalDeVotosRealizadosNaPauta(idPauta);
         if (quantidadeVotosTotal.intValue() == 0) {
-            throw new NegocioException(MensagensUtil.PAUTA_SEM_VOTO_PARA_APURAR);
+            throw new NegocioException(MensagensExceptionsUtil.PAUTA_SEM_VOTO_PARA_APURAR);
         }
         BigDecimal quantidadeVotosFavoravel = this.votoRepository.totalDeVotosRealizadosNaPautaPorTipoDoVoto(idPauta, StatusVotoEnum.SIM);
         BigDecimal quantidadeVotosOpostos = this.votoRepository.totalDeVotosRealizadosNaPautaPorTipoDoVoto(idPauta, StatusVotoEnum.NAO);
@@ -65,13 +65,13 @@ public class VotoServiceImpl implements VotoService {
         int resultadoComparado = quantidadeVotosFavoravel.compareTo(quantidadeVotosOpostos);
         switch (resultadoComparado) {
             case -1:
-                resultadoFinal = MensagensUtil.PAUTA_REPROVADA;
+                resultadoFinal = MensagensExceptionsUtil.PAUTA_REPROVADA;
                 break;
             case 0:
-                resultadoFinal = MensagensUtil.PAUTA_EMPATADA;
+                resultadoFinal = MensagensExceptionsUtil.PAUTA_EMPATADA;
                 break;
             case 1:
-                resultadoFinal = MensagensUtil.PAUTA_APROVADA;
+                resultadoFinal = MensagensExceptionsUtil.PAUTA_APROVADA;
                 break;
             default:
                 break;
@@ -84,7 +84,7 @@ public class VotoServiceImpl implements VotoService {
         this.logger.info("Method validarVotoDoUsuario.");
         Optional<Voto> opVoto = this.votoRepository.buscarVotoPelaPautaeVoto(votoDTO.getPauta().getId(), votoDTO.getUsuario().getId());
         if (opVoto.isPresent()) {
-            throw new NegocioException(MensagensUtil.USUARIO_COM_VOTO_REALIZADO);
+            throw new NegocioException(MensagensExceptionsUtil.USUARIO_COM_VOTO_REALIZADO);
         }
     }
 
@@ -92,7 +92,7 @@ public class VotoServiceImpl implements VotoService {
         this.logger.info("Method validarTempoDeSesaoFinalizado.");
         PautaDTO pautaDTO = this.pautaService.buscarPautaPorId(idPauta);
         if (pautaDTO.getDataHoraVotacao().isAfter(LocalDateTime.now())) {
-            throw new NegocioException(MensagensUtil.PAUTA_COM_VOTACAO_ABERTA);
+            throw new NegocioException(MensagensExceptionsUtil.PAUTA_COM_VOTACAO_ABERTA);
         }
     }
 

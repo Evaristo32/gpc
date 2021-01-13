@@ -3,6 +3,7 @@ package br.com.gpc.controller;
 import br.com.gpc.dto.UsuarioDTO;
 import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.service.UsuarioService;
+import br.com.gpc.util.constant.MensagensSwaggerUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -25,14 +26,14 @@ public class UsuarioController {
     private Logger logger = LoggerFactory.getLogger(UsuarioController.class);
     private final UsuarioService usuarioService;
 
-    @ApiOperation(value = "Cria um usuário.")
+    @ApiOperation(value = MensagensSwaggerUtil.CRIAR_USUARIO)
     @RequestMapping( method = RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UsuarioDTO> cadastrarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) throws NegocioException {
         this.logger.info("Method cadastrarUsuario.");
         return ResponseEntity.ok(usuarioService.cadastrarUsuario(usuarioDTO));
     }
 
-    @ApiOperation(value = "Buscar todos os usuários.")
+    @ApiOperation(value = MensagensSwaggerUtil.BUSCAR_USUARIO)
     @RequestMapping( method = RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UsuarioDTO>> buscarUsuariso() {
         this.logger.info("Method buscarUsuariso.");

@@ -8,7 +8,7 @@ import br.com.gpc.service.PautaService;
 import br.com.gpc.service.RabbitMqService;
 import br.com.gpc.service.ResultadoVotacaoService;
 import br.com.gpc.service.VotoService;
-import br.com.gpc.util.MensagensUtil;
+import br.com.gpc.util.constant.MensagensExceptionsUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -60,7 +60,7 @@ public class PautaJob {
         try {
             return new ObjectMapper().readValue(body, ResultaVotacaoDTO.class);
         } catch (IOException e) {
-            throw new NegocioException(MensagensUtil.ERRO_PARSE_JSON_TO_OBJECT, e);
+            throw new NegocioException(MensagensExceptionsUtil.ERRO_PARSE_JSON_TO_OBJECT, e);
         }
     }
 
@@ -70,7 +70,7 @@ public class PautaJob {
         try {
             jsonString = new ObjectMapper().writeValueAsString(resultados);
         } catch (JsonProcessingException e) {
-           throw new NegocioException(MensagensUtil.ERRO_PARSE_OBJECT_TO_JSON, e);
+           throw new NegocioException(MensagensExceptionsUtil.ERRO_PARSE_OBJECT_TO_JSON, e);
         }
        return jsonString;
     }

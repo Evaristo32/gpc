@@ -7,7 +7,7 @@ import br.com.gpc.dto.UsuarioDTO;
 import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.mapper.PautaMapper;
 import br.com.gpc.repository.PautaRepository;
-import br.com.gpc.util.MensagensUtil;
+import br.com.gpc.util.constant.MensagensExceptionsUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,7 +48,7 @@ public class PautaServiceImplTest extends Assertions {
         NegocioException negocioException = assertThrows(NegocioException.class, () -> {
             this.pautaServiceImpl.cadastrarPauta(PautaDTO.builder().build());
         });
-        assertEquals(negocioException.getMessage(), MensagensUtil.TEMA_JA_EXISTE);
+        assertEquals(negocioException.getMessage(), MensagensExceptionsUtil.TEMA_JA_EXISTE);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class PautaServiceImplTest extends Assertions {
         NegocioException negocioException = assertThrows(NegocioException.class, () -> {
             this.pautaServiceImpl.associarUsuariosPauta(build);
         });
-        assertEquals(negocioException.getMessage(), MensagensUtil.NENHUM_USUARIO_INFORMADO);
+        assertEquals(negocioException.getMessage(), MensagensExceptionsUtil.NENHUM_USUARIO_INFORMADO);
     }
 
     @Test
@@ -88,14 +88,14 @@ public class PautaServiceImplTest extends Assertions {
         NegocioException negocioExceptionPauta = assertThrows(NegocioException.class, () -> {
             this.pautaServiceImpl.abrirSessoaParaVotacao(1l);
         });
-        assertEquals(negocioExceptionPauta.getMessage(), MensagensUtil.PAUTA_NAO_ENCOTRADA_OU_VOTACAO_INICIADA);
+        assertEquals(negocioExceptionPauta.getMessage(), MensagensExceptionsUtil.PAUTA_NAO_ENCOTRADA_OU_VOTACAO_INICIADA);
 
         when(this.pautaRepository.buscarPautaComVotacaoParaAbrir(any())).thenReturn(Optional.of(Pauta.builder().id(1l).usuarios(null).build()));
         NegocioException negocioExceptionUsuario = assertThrows(NegocioException.class, () -> {
             this.pautaServiceImpl.abrirSessoaParaVotacao(1l);
         });
 
-        assertEquals(negocioExceptionUsuario.getMessage(), MensagensUtil.NENHUM_USUARIO_ASSOCIADO);
+        assertEquals(negocioExceptionUsuario.getMessage(), MensagensExceptionsUtil.NENHUM_USUARIO_ASSOCIADO);
     }
 
     @Test
@@ -110,13 +110,13 @@ public class PautaServiceImplTest extends Assertions {
         NegocioException negocioExceptionPauta = assertThrows(NegocioException.class, () -> {
             this.pautaServiceImpl.validarPautaComVotacaoAberta(1l);
         });
-        assertEquals(negocioExceptionPauta.getMessage(), MensagensUtil.VOTACAO_FECHADA_OU_INEXISTENTE);
+        assertEquals(negocioExceptionPauta.getMessage(), MensagensExceptionsUtil.VOTACAO_FECHADA_OU_INEXISTENTE);
 
         when(this.pautaRepository.buscarPautaComVotacaoAberta(any())).thenReturn(Optional.of(Pauta.builder().dataHoraVotacao(LocalDateTime.now().minusHours(1)).build()));
         NegocioException negocioExceptionVotacao = assertThrows(NegocioException.class, () -> {
             this.pautaServiceImpl.validarPautaComVotacaoAberta(1l);
         });
-        assertEquals(negocioExceptionVotacao.getMessage(), MensagensUtil.VOTACAO_ENCERRADA);
+        assertEquals(negocioExceptionVotacao.getMessage(), MensagensExceptionsUtil.VOTACAO_ENCERRADA);
     }
 
     @Test
@@ -139,7 +139,7 @@ public class PautaServiceImplTest extends Assertions {
         NegocioException negocioException = assertThrows(NegocioException.class, () -> {
             this.pautaServiceImpl.buscarPautaPorId(1l);
         });
-        assertEquals(negocioException.getMessage(), MensagensUtil.PAUTA_NAO_ENCONTRADA);
+        assertEquals(negocioException.getMessage(), MensagensExceptionsUtil.PAUTA_NAO_ENCONTRADA);
     }
 
     @Test

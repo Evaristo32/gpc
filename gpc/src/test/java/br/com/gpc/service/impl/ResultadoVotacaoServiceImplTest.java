@@ -5,7 +5,7 @@ import br.com.gpc.dto.ResultaVotacaoDTO;
 import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.mapper.ResultadoVotacaoMapper;
 import br.com.gpc.repository.ResultadoVotacaoRepository;
-import br.com.gpc.util.MensagensUtil;
+import br.com.gpc.util.constant.MensagensExceptionsUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,7 +49,7 @@ public class ResultadoVotacaoServiceImplTest extends Assertions {
         NegocioException negocioException = assertThrows(NegocioException.class, () -> {
             this.resultadoVotacaoService.buscarVotacaoPorIdPauta(1l);
         });
-        assertEquals(negocioException.getMessage(), MensagensUtil.PAUTA_SEM_VOTACAO);
+        assertEquals(negocioException.getMessage(), MensagensExceptionsUtil.PAUTA_SEM_VOTACAO);
     }
 
 }

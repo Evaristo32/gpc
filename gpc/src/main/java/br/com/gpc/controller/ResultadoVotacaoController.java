@@ -3,6 +3,7 @@ package br.com.gpc.controller;
 import br.com.gpc.dto.ResultaVotacaoDTO;
 import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.service.ResultadoVotacaoService;
+import br.com.gpc.util.constant.MensagensSwaggerUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ public class ResultadoVotacaoController {
     private Logger logger = LoggerFactory.getLogger(ResultadoVotacaoController.class);
     private final ResultadoVotacaoService resultadoVotacaoService;
 
-    @ApiOperation(value = "Buscar o resultado da votação da pauta.")
+    @ApiOperation(value = MensagensSwaggerUtil.RESULTADO_VOTACAO)
     @RequestMapping( value ="{idPauta}", method = RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultaVotacaoDTO> buscarResultadoDaVotacao(@PathVariable("idPauta") Long idPauta) throws NegocioException {
         this.logger.info("Method buscarResultadoDaVotacao.");

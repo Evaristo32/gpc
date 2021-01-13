@@ -9,7 +9,7 @@ import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.mapper.VotoMapper;
 import br.com.gpc.repository.VotoRepository;
 import br.com.gpc.service.PautaService;
-import br.com.gpc.util.MensagensUtil;
+import br.com.gpc.util.constant.MensagensExceptionsUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -56,7 +56,7 @@ public class VotoServiceImplTest extends Assertions {
                     .pauta(PautaDTO.builder().id(1l).build())
                     .usuario(UsuarioDTO.builder().id(1l).build()).build());
         });
-        assertEquals(negocioException.getMessage(), MensagensUtil.USUARIO_COM_VOTO_REALIZADO);
+        assertEquals(negocioException.getMessage(), MensagensExceptionsUtil.USUARIO_COM_VOTO_REALIZADO);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class VotoServiceImplTest extends Assertions {
         when(this.votoRepository.totalDeVotosRealizadosNaPautaPorTipoDoVoto(any(), eq(StatusVotoEnum.SIM))).thenReturn(BigDecimal.TEN);
         when(this.votoRepository.totalDeVotosRealizadosNaPautaPorTipoDoVoto(any(), eq(StatusVotoEnum.NAO))).thenReturn(BigDecimal.ONE);
         String mensagem = this.votoServiceImpl.contabilizarVotacaoDaPauta(1l).getMensagem();
-        assertEquals(mensagem, MensagensUtil.PAUTA_APROVADA);
+        assertEquals(mensagem, MensagensExceptionsUtil.PAUTA_APROVADA);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class VotoServiceImplTest extends Assertions {
         when(this.votoRepository.totalDeVotosRealizadosNaPautaPorTipoDoVoto(any(), eq(StatusVotoEnum.SIM))).thenReturn(BigDecimal.ONE);
         when(this.votoRepository.totalDeVotosRealizadosNaPautaPorTipoDoVoto(any(), eq(StatusVotoEnum.NAO))).thenReturn(BigDecimal.TEN);
         String mensagem = this.votoServiceImpl.contabilizarVotacaoDaPauta(1l).getMensagem();
-        assertEquals(mensagem, MensagensUtil.PAUTA_REPROVADA);
+        assertEquals(mensagem, MensagensExceptionsUtil.PAUTA_REPROVADA);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class VotoServiceImplTest extends Assertions {
         when(this.votoRepository.totalDeVotosRealizadosNaPautaPorTipoDoVoto(any(), eq(StatusVotoEnum.SIM))).thenReturn(BigDecimal.ONE);
         when(this.votoRepository.totalDeVotosRealizadosNaPautaPorTipoDoVoto(any(), eq(StatusVotoEnum.NAO))).thenReturn(BigDecimal.ONE);
         String mensagem = this.votoServiceImpl.contabilizarVotacaoDaPauta(1l).getMensagem();
-        assertEquals(mensagem, MensagensUtil.PAUTA_EMPATADA);
+        assertEquals(mensagem, MensagensExceptionsUtil.PAUTA_EMPATADA);
     }
 
     @Test
@@ -96,14 +96,14 @@ public class VotoServiceImplTest extends Assertions {
         NegocioException negocioExceptionPautaSemVoto = assertThrows(NegocioException.class, () -> {
             this.votoServiceImpl.contabilizarVotacaoDaPauta(1l);
         });
-        assertEquals(negocioExceptionPautaSemVoto.getMessage(), MensagensUtil.PAUTA_SEM_VOTO_PARA_APURAR);
+        assertEquals(negocioExceptionPautaSemVoto.getMessage(), MensagensExceptionsUtil.PAUTA_SEM_VOTO_PARA_APURAR);
 
         when(this.pautaService.buscarPautaPorId(any())).thenReturn(PautaDTO.builder().dataHoraVotacao(LocalDateTime.now().plusMinutes(1)).build());
         NegocioException negocioExceptionVotacaoAberta = assertThrows(NegocioException.class, () -> {
             this.votoServiceImpl.contabilizarVotacaoDaPauta(1l);
         });
 
-        assertEquals(negocioExceptionVotacaoAberta.getMessage(), MensagensUtil.PAUTA_COM_VOTACAO_ABERTA);
+        assertEquals(negocioExceptionVotacaoAberta.getMessage(), MensagensExceptionsUtil.PAUTA_COM_VOTACAO_ABERTA);
     }
 
 }

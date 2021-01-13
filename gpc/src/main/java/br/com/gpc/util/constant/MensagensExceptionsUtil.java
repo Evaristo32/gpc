@@ -1,6 +1,6 @@
-package br.com.gpc.util;
+package br.com.gpc.util.constant;
 
-public abstract class MensagensUtil {
+public abstract class MensagensExceptionsUtil {
 
     public static final String TEMA_JA_EXISTE = "Já existe uma pauta com esse tema!";
     public static final String NENHUM_USUARIO_INFORMADO = "E necessário informar pelo menos um usuário para realizar a associação!";

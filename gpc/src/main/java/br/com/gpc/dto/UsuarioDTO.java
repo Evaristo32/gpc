@@ -1,5 +1,6 @@
 package br.com.gpc.dto;
 
+import br.com.gpc.util.constant.MensagensBeanValidationUtil;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,7 +15,7 @@ public class UsuarioDTO {
 
     private Long id;
 
-    @Size(min = 11,max = 11, message = "O campo campo cpf deve ser preenchido com 11 caracteres!")
-    @NotEmpty(message = "O campo cpf é de preenchimento obrigatório!")
+    @Size(min = 11,max = 11, message = MensagensBeanValidationUtil.CPF_TAMANHO)
+    @NotEmpty(message = MensagensBeanValidationUtil.CPF_OBRIGATORIO)
     private String cpf;
 }
