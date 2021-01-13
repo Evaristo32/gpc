@@ -3,6 +3,7 @@ package br.com.gpc.controller;
 import br.com.gpc.dto.VotoDTO;
 import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.service.VotoService;
+import br.com.gpc.util.constant.MensagensSwaggerUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ public class VotoController {
     private Logger logger = LoggerFactory.getLogger(VotoController.class);
     private final VotoService votoService;
 
-    @ApiOperation(value = "Computa voto.")
+    @ApiOperation(value = MensagensSwaggerUtil.COMPUTAR_VOTO)
     @RequestMapping( method = RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VotoDTO> computarVoto(@Valid @RequestBody VotoDTO votoDTO) throws NegocioException {
         this.logger.info("Method computarVoto.");

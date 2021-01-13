@@ -8,7 +8,7 @@ import br.com.gpc.enums.StatusUsuarioEnum;
 import br.com.gpc.exceptions.NegocioException;
 import br.com.gpc.mapper.UsuarioMapper;
 import br.com.gpc.repository.UsuarioRepository;
-import br.com.gpc.util.MensagensUtil;
+import br.com.gpc.util.constant.MensagensExceptionsUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,7 +53,7 @@ public class UsuarioServiceImplTest extends Assertions {
             this.usuarioServiceImpl.cadastrarUsuario(UsuarioDTO.builder().id(1l).cpf("012345678909").build());
         });
 
-        assertEquals(negocioExceptionUsuario.getMessage(), MensagensUtil.USUARIO_JA_CADASTRADO);
+        assertEquals(negocioExceptionUsuario.getMessage(), MensagensExceptionsUtil.USUARIO_JA_CADASTRADO);
 
         when(this.usuarioRepository.buscarUsuarioPorCpf(any())).thenReturn(Optional.empty());
         when(this.usuarioHerokuClient.validarStatusUsuario(any())).thenReturn(ResponseUsuarioDTO.builder().status(StatusUsuarioEnum.UNABLE_TO_VOTE.getDescricao()).build());
@@ -61,7 +61,7 @@ public class UsuarioServiceImplTest extends Assertions {
             this.usuarioServiceImpl.cadastrarUsuario(UsuarioDTO.builder().id(1l).cpf("012345678909").build());
         });
 
-        assertEquals(negocioExceptionCpf.getMessage(), MensagensUtil.CPF_INVALIDO);
+        assertEquals(negocioExceptionCpf.getMessage(), MensagensExceptionsUtil.CPF_INVALIDO);
     }
 
     @Test
