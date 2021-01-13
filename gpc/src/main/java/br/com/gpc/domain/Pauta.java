@@ -29,7 +29,7 @@ public class Pauta  implements Serializable {
     private String descricao;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(schema = "gpc",name = "pauta_usuario",
+    @JoinTable(name = "pauta_usuario",
             joinColumns = {
                     @JoinColumn(name = "id_pauta", referencedColumnName = "id",
                             nullable = false, updatable = false)},

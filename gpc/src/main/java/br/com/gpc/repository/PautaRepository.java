@@ -26,7 +26,7 @@ public interface PautaRepository extends JpaRepository<Pauta, Long> {
     @Query(value = "select p from  Pauta p where p.id = :idPauta and p.dataHoraVotacao is not null ")
     Optional<Pauta> buscarPautaComVotacaoAberta(@Param("idPauta") Long idPauta);
 
-    @Query(value = "select p from  Pauta p join fetch p.usuarios u")
+    @Query(value = "select distinct p from  Pauta p left join fetch p.usuarios u ")
     List<Pauta> buscarTodasPautas();
 
     @Query(value = "select distinct p from  Pauta p " +
