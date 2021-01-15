@@ -10,6 +10,7 @@ import br.com.gpc.util.constant.MensagensExceptionsUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,7 @@ public class PautaServiceImpl implements PautaService {
     private final int UM_MINUTOS = 1;
     private final PautaRepository pautaRepository;
     private final PautaMapper pautaMapper;
+
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override

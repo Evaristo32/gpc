@@ -45,9 +45,6 @@ public class VotoServiceImpl implements VotoService {
         this.logger.info("Method contabilizarVotacaoDaPauta.");
         validarTempoDeSesaoFinalizado(idPauta);
         BigDecimal quantidadeVotosTotal = this.votoRepository.totalDeVotosRealizadosNaPauta(idPauta);
-        if (quantidadeVotosTotal.intValue() == 0) {
-            throw new NegocioException(MensagensExceptionsUtil.PAUTA_SEM_VOTO_PARA_APURAR);
-        }
         BigDecimal quantidadeVotosFavoravel = this.votoRepository.totalDeVotosRealizadosNaPautaPorTipoDoVoto(idPauta, StatusVotoEnum.SIM);
         BigDecimal quantidadeVotosOpostos = this.votoRepository.totalDeVotosRealizadosNaPautaPorTipoDoVoto(idPauta, StatusVotoEnum.NAO);
         return ResultaVotacaoDTO.builder()

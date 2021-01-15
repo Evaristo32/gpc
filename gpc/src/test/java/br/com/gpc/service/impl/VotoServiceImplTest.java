@@ -91,12 +91,6 @@ public class VotoServiceImplTest extends Assertions {
 
     @Test
     public void contabilizarVotacaoDaPautaExceptionTest() {
-        when(this.pautaService.buscarPautaPorId(any())).thenReturn(PautaDTO.builder().dataHoraVotacao(LocalDateTime.now().minusHours(1)).build());
-        when(this.votoRepository.totalDeVotosRealizadosNaPauta(any())).thenReturn(BigDecimal.ZERO);
-        NegocioException negocioExceptionPautaSemVoto = assertThrows(NegocioException.class, () -> {
-            this.votoServiceImpl.contabilizarVotacaoDaPauta(1l);
-        });
-        assertEquals(negocioExceptionPautaSemVoto.getMessage(), MensagensExceptionsUtil.PAUTA_SEM_VOTO_PARA_APURAR);
 
         when(this.pautaService.buscarPautaPorId(any())).thenReturn(PautaDTO.builder().dataHoraVotacao(LocalDateTime.now().plusMinutes(1)).build());
         NegocioException negocioExceptionVotacaoAberta = assertThrows(NegocioException.class, () -> {
