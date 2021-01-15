@@ -23,6 +23,7 @@ Acessar a pasta  onde se encontra o arquivo “pom.xml”  e executar os seguint
 
 
 #Buscar pautas 
+
     Api swagger:
 
         Executar a chamada.
